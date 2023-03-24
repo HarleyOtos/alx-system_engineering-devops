@@ -1,20 +1,20 @@
 # Install a package using Puppet
 
-exec { 'install flask':
-  command => '/usr/bin/apt-get install -y flask'
+exec { 'install ruby':
+  command => '/usr/bin/apt-get install -y ruby'
 }
 
 exec { 'install puppet-lint':
   command => '/usr/bin/gem install puppet-lint -v 2.1.0'
 }
 
-package { 'flask':
+package { 'ruby':
   ensure => 'installed',
-  before => Exec['install flask']
+  before => Exec['install ruby']
 }
 
 package { 'puppet-lint':
   ensure  => 'installed',
   before  => Exec['install puppet-lint'],
-  require => Package['flask']
+  require => Package['ruby']
 }
