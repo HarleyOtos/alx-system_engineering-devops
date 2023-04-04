@@ -1,27 +1,15 @@
 #!/usr/bin/env bash
 
-# Update and upgrade packages
-sudo apt-get update
-sudo apt-get upgrade -y
-
 # Install HAproxy
+sudo apt-get update
 sudo apt-get install -y haproxy
 
 # Configure HAproxy
-sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.original
+sudo sed -i 's/^\(.*\)frontend\ \(.*\)$/\1frontend \2\n    bind \*:80\n    mode http\n    default_backend web-backend/' /etc/haproxy/haproxy.cfg
+sudo sh -c "echo 'backend web-backend\n    mode http\n    balance roundrobin\n    server web-01 54.224.21.248:80 check\n    server web-02 100.25.28.51:80 check' >> /etc/haproxy/haproxy.cfg"
 
-sudo cat <<EOF > /etc/haproxy/haproxy.cfg
-frontend lb-frontend
-    bind *:80
-    mode http
-    default_backend lb-backend
-
-backend lb-backend
-    mode http
-    balance roundrobin
-    server web-01 54.224.21.248:80 check
-    server web-02 100.25.28.51:80 check
-EOF
+# Enable HAproxy init script
+sudo sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/haproxy
 
 # Restart HAproxy
 sudo service haproxy restart
