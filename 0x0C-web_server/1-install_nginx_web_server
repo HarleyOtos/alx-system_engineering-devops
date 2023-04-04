@@ -7,7 +7,7 @@
 # and return "Hello World!"
 #
 
-apt update -y
+apt update
 apt install -y nginx
 ufw allow 'Nginx HTTP'
 echo "Hello World!" > /var/www/html/index.html
