@@ -1,36 +1,24 @@
 #!/usr/bin/env bash
-
-# Install a nginx web server listening on port 80.
+# Install Nginx
+#
+# Allow incoming traffic on port 80
+#
+# Configure Nginx to listen on port 80
+# and return "Hello World!"
+#
+# Configure redirection from /redirect_me to a specified URL
+#
+# Restart Nginx
 #
 
-# Define the link to redirect to
-link="https://www.youtube.com/watch?v=QH2-TGUlwu4"
-
-# Define the Nginx server configuration to use
-new_conf="server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-
-    server_name _;
-
-    location /redirect_me {
-        return 301 $link;
-    }
-
-    root /var/www/html;
-    index index.html index.htm index.nginx-debian.html;
-}"
-
-# Update package list and install Nginx
-apt update
-apt install -y nginx
-
-# Allow incoming traffic on port 80
+sudo apt-get update
+sudo apt-get install -y nginx
 ufw allow 'Nginx HTTP'
-
-# Write sample content to the default Nginx root directory
 echo "Hello World!" > /var/www/html/index.html
-
-# Replace default Nginx configuration with custom configuration
-echo -e "$new_conf" > /etc/nginx/sites-available/default
+echo "server {
+        listen 80;
+        location /redirect_me {
+            return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+        }
+}" > /etc/nginx/sites-available/default
 service nginx restart
