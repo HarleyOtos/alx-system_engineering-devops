@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# A script fixes the issue of Apache not running on the container
+# and not returning a page containing "Hello Holberton" when querying the root of it.
+
+# Install Apache web server
+apt-get update
+apt-get install -y apache2
+
+# Modify default Apache configuration
+echo "Hello Holberton" > /var/www/html/index.html
+
+# Restart Apache service
+service apache2 restart
