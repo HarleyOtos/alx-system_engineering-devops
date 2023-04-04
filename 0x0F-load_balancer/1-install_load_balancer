@@ -25,6 +25,3 @@ EOF
 
 # Restart HAproxy
 sudo service haproxy restart
-
-# HAproxy to starts automatically on boot
-sudo update-rc.d haproxy defaults
