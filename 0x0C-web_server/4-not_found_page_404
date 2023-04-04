@@ -15,4 +15,4 @@ location = /404.html {\n\
 }' /etc/nginx/sites-available/default
 
 # Restart Nginx to apply changes
-sudo systemctl restart nginx
+service nginx restart
