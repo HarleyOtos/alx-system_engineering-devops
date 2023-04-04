@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
-
 # Install Nginx
-sudo apt-get update
-sudo apt-get install -y nginx
-
+#
 # Allow incoming traffic on port 80
-ufw allow 'Nginx HTTP'
-
+#
 # Configure Nginx to listen on port 80
 # and return "Hello World!"
-echo "Hello World!" > /var/www/html/index.html 
-
+#
 # Restart Nginx
+#
+
+sudo apt-get update
+sudo apt-get install -y nginx
+ufw allow 'Nginx HTTP'
+echo "Hello World!" > /var/www/html/index.html
 service nginx restart
