@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-apt-get update
-apt-get install -y nginx
+# Configuration of the server to active Nginx on 80 port
 sed -i 's/80 default_server/80/g' /etc/nginx/sites-available/default
 nginx -t
 service nginx start
