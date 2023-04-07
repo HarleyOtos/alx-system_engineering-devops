@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# This script displays information about subdomains for a given domain.
+
+# Check for the required arguments.
+if [ "$#" -lt 1 ]; then
+  echo "Usage: $0 domain [subdomain]"
+  exit 1
+fi
+
+domain="$1"
+subdomain="${2:-www lb-01 web-01 web-02}"
+
+# Loop through each subdomain and display its DNS record information.
+for sub in $subdomain; do
+  record=$(dig "$sub.$domain" +short)
+  type=$(dig "$sub.$domain" +short | awk 'NR==1{print $2}')
+  if [ -n "$record" ]; then
+    echo "The subdomain $sub is a $type record and points to $record"
+  fi
+done
