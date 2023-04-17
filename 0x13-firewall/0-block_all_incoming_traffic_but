@@ -1,4 +1,4 @@
-sudo apt-get install ufw
+sudo apt install ufw
 sudo ufw default allow outgoing
 sudo ufw default deny incoming
 sudo ufw allow ssh
