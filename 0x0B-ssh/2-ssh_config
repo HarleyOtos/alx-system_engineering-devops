@@ -3,4 +3,4 @@
 Host 52.3.247.44
 	User ubuntu
 	IdentityFile ~/.ssh/school
-	BatchMode yes
+	PasswordAuthentication no
