@@ -22,13 +22,13 @@ sudo ufw allow 'Nginx HTTP'
 echo "Hello World!" | sudo tee /var/www/html/index.html
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
 
-# Modify the default Nginx site configuration file
+# Modify the default Nginx site configuration file on web-01
 sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/custom
 sudo sed -i "s|server_name _;|$new_conf|" /etc/nginx/sites-available/custom
 sudo sed -i "0,/}/ s|}|$error_404|" /etc/nginx/sites-available/custom
 sudo ln -s /etc/nginx/sites-available/custom /etc/nginx/sites-enabled/
 
-# Restart Nginx service
+# Restart Nginx service on web-01
 sudo service nginx restart
 
 # Copy the contents of /var/www/html from web-01 to web-02
@@ -37,3 +37,12 @@ if sudo rsync -avz -e "ssh -o StrictHostKeyChecking=no" /var/www/html/ ubuntu@we
 else
   echo "Error copying files" >&2
 fi
+
+# Modify the default Nginx site configuration file on web-02
+ssh ubuntu@web-02 "sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/custom"
+ssh ubuntu@web-02 "sudo sed -i 's|server_name _;|$new_conf|' /etc/nginx/sites-available/custom"
+ssh ubuntu@web-02 "sudo sed -i '0,/}/ s|}|$error_404|' /etc/nginx/sites-available/custom"
+ssh ubuntu@web-02 "sudo ln -s /etc/nginx/sites-available/custom /etc/nginx/sites-enabled/"
+
+# Restart Nginx service on web-02
+ssh ubuntu@web-02 "sudo service nginx restart"
