@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Configuration of the server to active Nginx on 80 port
-sed -i 's/80 default_server/80/g' /etc/nginx/sites-available/default
-nginx -t
-service nginx start
+sudo sed -i 's/80 default_server/80/g' /etc/nginx/sites-available/default
+sudo nginx -t
+sudo service nginx start
