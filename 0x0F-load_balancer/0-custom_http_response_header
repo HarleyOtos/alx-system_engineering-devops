@@ -39,10 +39,10 @@ else
 fi
 
 # Modify the default Nginx site configuration file on web-02
-ssh ubuntu@web-02 "sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/custom"
-ssh ubuntu@web-02 "sudo sed -i 's|server_name _;|$new_conf|' /etc/nginx/sites-available/custom"
-ssh ubuntu@web-02 "sudo sed -i '0,/}/ s|}|$error_404|' /etc/nginx/sites-available/custom"
-ssh ubuntu@web-02 "sudo ln -s /etc/nginx/sites-available/custom /etc/nginx/sites-enabled/"
+ssh ubuntu@157402-web-02 "sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/custom"
+ssh ubuntu@157402-web-02 "sudo sed -i 's|server_name _;|$new_conf|' /etc/nginx/sites-available/custom"
+ssh ubuntu@157402-web-02 "sudo sed -i '0,/}/ s|}|$error_404|' /etc/nginx/sites-available/custom"
+ssh ubuntu@157402-web-02 "sudo ln -s /etc/nginx/sites-available/custom /etc/nginx/sites-enabled/"
 
 # Restart Nginx service on web-02
-ssh ubuntu@web-02 "sudo service nginx restart"
+ssh ubuntu@157402-web-02 "sudo service nginx restart"
