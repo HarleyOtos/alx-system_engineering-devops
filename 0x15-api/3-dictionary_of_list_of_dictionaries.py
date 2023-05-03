@@ -2,8 +2,8 @@
 """
 This Python script export data of all employees in the JSON format.
 """
-import requests
 import json
+import requests
 import sys
 
 if len(sys.argv) != 1:
@@ -24,7 +24,8 @@ all_tasks = {}
 # Retrieve tasks for each user
 for user_id in user_ids:
     # Retrieve user information
-    response = requests.get(f"https://jsonplaceholder.typicode.com/users/{user_id}")
+    response = requests.get(
+        f"https://jsonplaceholder.typicode.com/users/{user_id}")
     if response.status_code != 200:
         print(f"Could not retrieve user information for ID {user_id}")
         continue
@@ -32,7 +33,8 @@ for user_id in user_ids:
     employee_name = user["username"]
 
     # Retrieve TODO list information
-    response = requests.get(f"https://jsonplaceholder.typicode.com/todos?userId={user_id}")
+    response = requests.get(
+        f"https://jsonplaceholder.typicode.com/todos?userId={user_id}")
     if response.status_code != 200:
         print(f"Could not retrieve TODO list information for ID {user_id}")
         continue

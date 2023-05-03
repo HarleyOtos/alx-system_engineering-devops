@@ -13,7 +13,8 @@ if len(sys.argv) != 2:
 employee_id = int(sys.argv[1])
 
 # Retrieve user information
-response = requests.get(f"https://jsonplaceholder.typicode.com/users/{employee_id}")
+response = requests.get(
+    f"https://jsonplaceholder.typicode.com/users/{employee_id}")
 if response.status_code != 200:
     print(f"Could not retrieve user information for ID {employee_id}")
     sys.exit(1)
@@ -21,7 +22,8 @@ user = response.json()
 employee_name = user["name"]
 
 # Retrieve TODO list information
-response = requests.get(f"https://jsonplaceholder.typicode.com/todos?userId={employee_id}")
+response = requests.get(
+    f"https://jsonplaceholder.typicode.com/todos?userId={employee_id}")
 if response.status_code != 200:
     print(f"Could not retrieve TODO list information for ID {employee_id}")
     sys.exit(1)
@@ -32,7 +34,8 @@ total_tasks = len(todos)
 done_tasks = len([todo for todo in todos if todo["completed"]])
 
 # Display information
-print(f"Employee {employee_name} is done with tasks({done_tasks}/{total_tasks}):")
+print(
+    f"Employee {employee_name} is done with tasks({done_tasks}/{total_tasks}):")
 for todo in todos:
     if todo["completed"]:
         print(f"\t {todo['title']}")
