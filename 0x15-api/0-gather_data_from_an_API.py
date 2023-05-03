@@ -3,6 +3,7 @@
 This script retrieves data from a REST API and
 displays information about an employee's completed tasks.
 """
+
 import requests
 import sys
 
