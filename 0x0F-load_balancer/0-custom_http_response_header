@@ -4,45 +4,35 @@
 # Task 1: Configure Nginx so that its HTTP response contains a custom header
 # Task 2: Copy the contents of /var/www/html from web-01 to web-02
 
-# Task 1: Configure Nginx on web-01 and web-02
 link="https://www.youtube.com/watch?v=QH2-TGUlwu4"
-header_key="X-Served-By"
-header_value="$(hostname)"
-new_conf="server_name _;\n\trewrite ^/redirect_me/$ $link permanent;\n\tadd_header $header_key $header_value;"
+new_conf="server_name _;\n\trewrite ^/redirect_me/$ $link permanent;"
 location_error="location = /404.html {\n\t\troot /var/www/html/;\n\t\tinternal;\n"
 error_directive="error_page 404 /404.html;\n\t$location_error"
 error_404="}\n\n\t$error_directive\t}"
 
 # Install Nginx and allow HTTP traffic
-sudo apt-get update -y
-sudo apt-get install nginx -y
+sudo apt update
+sudo apt install -y nginx
 sudo ufw allow 'Nginx HTTP'
-
-# Create custom HTML pages
 echo "Hello World!" | sudo tee /var/www/html/index.html
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
-
-# Modify the default Nginx site configuration file on web-01
-sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/custom
-sudo sed -i "s|server_name _;|$new_conf|" /etc/nginx/sites-available/custom
-sudo sed -i "0,/}/ s|}|$error_404|" /etc/nginx/sites-available/custom
-sudo ln -s /etc/nginx/sites-available/custom /etc/nginx/sites-enabled/
-
-# Restart Nginx service on web-01
+sudo sed -i "s|server_name\ _;|$new_conf|" /etc/nginx/sites-available/default
+sudo sed -i "0,/}/ s|}|$error_404|" /etc/nginx/sites-available/default
 sudo service nginx restart
 
-# Copy the contents of /var/www/html from web-01 to web-02
-if sudo rsync -avz -e "ssh -o StrictHostKeyChecking=no" /var/www/html/ ubuntu@web-02:/var/www/html/; then
-  echo "Files copied successfully"
-else
-  echo "Error copying files" >&2
+config_file="/etc/nginx/nginx.conf"
+
+if ! sudo grep -q "add_header X-Served-By" $config_file;
+then
+    header_key="X-Served-By"
+    header_value="\$hostname"
+    header="add_header $header_key $header_value;"
+    search="http {"
+    new_conf="$search\n\t$header"
+
+    # change the content found with the new config
+    sudo sed -i "s|$search|$new_conf|" $config_file
+
+    # To restart Nginx Service
+    sudo service nginx restart
 fi
-
-# Modify the default Nginx site configuration file on web-02
-ssh ubuntu@157402-web-02 "sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/custom"
-ssh ubuntu@157402-web-02 "sudo sed -i 's|server_name _;|$new_conf|' /etc/nginx/sites-available/custom"
-ssh ubuntu@157402-web-02 "sudo sed -i '0,/}/ s|}|$error_404|' /etc/nginx/sites-available/custom"
-ssh ubuntu@157402-web-02 "sudo ln -s /etc/nginx/sites-available/custom /etc/nginx/sites-enabled/"
-
-# Restart Nginx service on web-02
-ssh ubuntu@157402-web-02 "sudo service nginx restart"
