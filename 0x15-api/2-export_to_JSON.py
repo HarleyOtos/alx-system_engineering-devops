@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-#!/usr/bin/python3
 """
 This script retrieves data from a REST API and exports it in JSON format
 """
@@ -37,21 +36,19 @@ def main():
         sys.exit(1)
     todos = response.json()
 
-    # Create JSON object
-    tasks = []
-    for todo in todos:
-        task = {"task": todo["title"],
-                "completed": todo["completed"], "username": employee_name}
-        tasks.append(task)
-    data = {str(employee_id): tasks}
+    # Create the JSON data
+    json_data = {}
+    json_data[str(employee_id)] = [
+        {
+            "task": todo["title"],
+            "completed": todo["completed"],
+            "username": user["username"]
+        } for todo in todos
+    ]
 
-    # Export data in JSON format
-    filename = "{}.json".format(employee_id)
-    with open(filename, "w") as file:
-        json.dump(data, file, indent=4)
-
-    # Display information
-    print("Data exported to {}".format(filename))
+    # Write the JSON data to a file
+    with open(str(employee_id) + '.json', 'w') as json_file:
+        json.dump(json_data, json_file)
 
 
 if __name__ == "__main__":
