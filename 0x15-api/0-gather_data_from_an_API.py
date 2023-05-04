@@ -38,10 +38,10 @@ def main():
 
     # Display information
     print(
-        f"Employee {employee_name} is done with tasks({done_tasks}/{total_tasks}):")
+        "Employee {} is done with tasks({}/{})".format(employee_name, done_tasks, total_tasks))
     for todo in todos:
         if todo["completed"]:
-            print(f"\t {todo['title']}")
+            print("\t {}".format(todo['title']))
 
 
 if __name__ == "__main__":
