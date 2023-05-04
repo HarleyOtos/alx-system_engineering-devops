@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """
-This script retrieves data from a REST API
-and displays information about an employee's
-completed tasks.
+This script retrieves data from a REST API and
+displays information about an employee's completed tasks.
 """
 
 import requests
@@ -11,8 +10,7 @@ import sys
 
 def main():
     if len(sys.argv) != 2:
-        print(
-            "Usage: python3 gather_data_from_an_API.py EMPLOYEE_ID")
+        print("Usage: python3 gather_data_from_an_API.py EMPLOYEE_ID")
         sys.exit(1)
 
     employee_id = int(sys.argv[1])
