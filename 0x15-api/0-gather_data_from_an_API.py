@@ -41,7 +41,7 @@ def main():
 
     # Display information
     print(
-        "Employee {} is done with tasks({}/{})".format(
+        "Employee {} is done with tasks({}/{}):".format(
             employee_name, done_tasks, total_tasks))
     for todo in todos:
         if todo["completed"]:
