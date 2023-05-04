@@ -19,7 +19,7 @@ def main():
     response = requests.get(
         "https://jsonplaceholder.typicode.com/users/{}".format(employee_id))
     if response.status_code != 200:
-        print(f"Could not retrieve user information for ID {employee_id}")
+        print(f"Could not retrieve user information for ID " + str(employee_id))
         sys.exit(1)
     user = response.json()
     employee_name = user["name"]
@@ -28,7 +28,7 @@ def main():
     response = requests.get(
         f"https://jsonplaceholder.typicode.com/todos?userId={employee_id}")
     if response.status_code != 200:
-        print(f"Could not retrieve TODO list information for ID {employee_id}")
+        print(f"Could not retrieve TODO list information for ID " + str(employee_id))
         sys.exit(1)
     todos = response.json()
 
