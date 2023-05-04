@@ -1,7 +1,25 @@
 #!/usr/bin/python3
 """
-This script retrieves data from a REST API and
-displays information about an employee's completed tasks.
+This script retrieves data from a REST API and displays information
+about an employee's completed tasks.
+
+Usage: python3 gather_data_from_an_API.py EMPLOYEE_ID
+
+Parameters:
+    EMPLOYEE_ID (int): The ID of the employee whose task information you want to retrieve.
+
+Returns:
+    None
+
+Limitations:
+    This script assumes that the employee ID is a valid integer and that the REST API is accessible.
+
+Examples:
+    $ python3 gather_data_from_an_API.py 1
+    Employee Leanne Graham is done with tasks(18/20):
+         sunt aut facere repellat provident occaecati excepturi optio reprehenderit
+         ...
+         eveniet quo quis
 """
 
 import requests
