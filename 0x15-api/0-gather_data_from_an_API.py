@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-#!/usr/bin/python3
 """
 This script retrieves data from a REST API and
 displays information about an employee's completed tasks.
