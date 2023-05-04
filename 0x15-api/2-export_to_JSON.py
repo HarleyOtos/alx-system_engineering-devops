@@ -41,8 +41,7 @@ tasks = data[str(employee_id)]
 missing_tasks = []
 for todo in todos:
     task = {"task": todo["title"],
-            "completed": todo["completed"],
-              "username": employee_name}
+            "completed": todo["completed"], "username": employee_name}
     if task not in tasks:
         missing_tasks.append(task)
 if missing_tasks:
@@ -53,8 +52,7 @@ if missing_tasks:
 
 # Display information
 if missing_tasks:
-    print("Number of tasks missing: {}".format(
-        len(missing_tasks)))
+    print("Number of tasks missing: {}".format(len(missing_tasks)))
 else:
     print("All tasks found: OK")
 print("Data exported to {}".format(filename))
