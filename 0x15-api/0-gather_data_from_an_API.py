@@ -17,7 +17,7 @@ def main():
 
     # Retrieve user information
     response = requests.get(
-        f"https://jsonplaceholder.typicode.com/users/{employee_id}")
+        "https://jsonplaceholder.typicode.com/users/{}".format(employee_id))
     if response.status_code != 200:
         print(f"Could not retrieve user information for ID {employee_id}")
         sys.exit(1)
