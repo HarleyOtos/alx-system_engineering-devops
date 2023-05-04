@@ -36,22 +36,17 @@ def main():
         sys.exit(1)
     todos = response.json()
 
-    # Export data to CSV
+    # Export data to CSV format
+    rows = []
+    for todo in todos:
+        row = [str(employee_id), employee_name, str(todo['completed']), todo['title']]
+        row_str = ','.join(['"' + r + '"' for r in row])
+        rows.append(row_str)
+
     filename = "{}.csv".format(employee_id)
-    with open(filename, mode='w', newline='') as csv_file:
-        fieldnames = ['USER_ID', 'USERNAME',
-                      'TASK_COMPLETED_STATUS', 'TASK_TITLE']
-        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-
-        writer.writeheader()
-
-        for todo in todos:
-            writer.writerow({
-                'USER_ID': employee_id,
-                'USERNAME': employee_name,
-                'TASK_COMPLETED_STATUS': str(todo['completed']),
-                'TASK_TITLE': todo['title']
-            })
+    with open(filename, mode='w') as file:
+        file.write('\n'.join(rows))
+        file.write('\n')
 
     print("Data exported to {}".format(filename))
 
