@@ -14,18 +14,22 @@ employee_id = int(sys.argv[1])
 
 # Retrieve user information
 response = requests.get(
-    f"https://jsonplaceholder.typicode.com/users/{employee_id}")
+    "https://jsonplaceholder.typicode.com/users/{}".format(
+        employee_id))
 if response.status_code != 200:
-    print(f"Could not retrieve user information for ID {employee_id}")
+    print("Could not retrieve user information for ID " + str(
+        employee_id))
     sys.exit(1)
 user = response.json()
 employee_name = user["name"]
 
 # Retrieve TODO list information
 response = requests.get(
-    f"https://jsonplaceholder.typicode.com/todos?userId={employee_id}")
+    "https://jsonplaceholder.typicode.com/todos?userId={}".format(
+        employee_id))
 if response.status_code != 200:
-    print(f"Could not retrieve TODO list information for ID {employee_id}")
+    print("Could not retrieve TODO list information for ID " + str(
+        employee_id))
     sys.exit(1)
 todos = response.json()
 
@@ -35,22 +39,23 @@ done_tasks = len([todo for todo in todos if todo["completed"]])
 
 # Display information
 print(
-    f"Employee {employee_name} is done with tasks ({done_tasks}/{total_tasks}):")
+    "Employee {} is done with tasks({}/{})".format(
+        employee_name, done_tasks, total_tasks))
 for todo in todos:
     if todo["completed"]:
-        print(f"\t{todo['title']}")
+        print("\t {}".format(todo['title']))
     else:
-        print(f"\t[X] {todo['title']}")
+        print("\t[X] {}".format(todo['title']))
 
 # Export to CSV
 if todos:
-    with open(f"{employee_id}.csv", mode="w", newline="") as file:
+    with open("{}.csv".format(employee_id), mode="w", newline="") as file:
         writer = csv.writer(file, quoting=csv.QUOTE_ALL)
         writer.writerow(
             ["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"])
         for todo in todos:
             writer.writerow([employee_id, employee_name,
                             todo["completed"], todo["title"]])
-    print(f"Data exported to {employee_id}.csv")
+    print("Data exported to {}.csv".format(employee_id))
 else:
     print("No tasks found for this employee")

@@ -25,18 +25,20 @@ all_tasks = {}
 for user_id in user_ids:
     # Retrieve user information
     response = requests.get(
-        f"https://jsonplaceholder.typicode.com/users/{user_id}")
+        "https://jsonplaceholder.typicode.com/users/{}".format(user_id))
     if response.status_code != 200:
-        print(f"Could not retrieve user information for ID {user_id}")
+        print(
+            "Could not retrieve user information for ID " + str(user_id))
         continue
     user = response.json()
     employee_name = user["username"]
 
     # Retrieve TODO list information
     response = requests.get(
-        f"https://jsonplaceholder.typicode.com/todos?userId={user_id}")
+        "https://jsonplaceholder.typicode.com/todos?userId={}".format(user_id))
     if response.status_code != 200:
-        print(f"Could not retrieve TODO list information for ID {user_id}")
+        print(
+            "Could not retrieve TODO list information for ID " + str(user_id))
         continue
     todos = response.json()
 
