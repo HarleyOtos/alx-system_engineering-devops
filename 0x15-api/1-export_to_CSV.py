@@ -39,7 +39,8 @@ def main():
     # Export data to CSV format
     rows = []
     for todo in todos:
-        row = [str(employee_id), employee_name, str(todo['completed']), todo['title']]
+        row = [str(employee_id), employee_name,
+               str(todo['completed']), todo['title']]
         row_str = ','.join(['"' + r + '"' for r in row])
         rows.append(row_str)
 
