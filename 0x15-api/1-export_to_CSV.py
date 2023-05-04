@@ -49,12 +49,12 @@ for todo in todos:
 
 # Export to CSV
 if todos:
-    with open("{}.csv".format(employee_id), mode="w",
-               newline="") as csv_file:
+    with open("{}.csv".format(employee_id), mode="w", 
+              newline="") as csv_file:
         writer = csv.writer(
-            csv_file, delimiter=',', quotechar='"',
-              quoting=csv.QUOTE_MINIMAL)
+            csv_file, delimiter=',', quotechar='"', 
+                quoting=csv.QUOTE_MINIMAL)
         for todo in todos:
             writer.writerow([
                 employee_id, employee_name,
-                  todo["completed"], todo["title"]])
+                todo["completed"], todo["title"]])
