@@ -26,9 +26,11 @@ def main():
 
     # Retrieve TODO list information
     response = requests.get(
-        "https://jsonplaceholder.typicode.com/todos?userId={}".format(employee_id))
+        "https://jsonplaceholder.typicode.com/todos?userId={}".format(
+            employee_id))
     if response.status_code != 200:
-        print("Could not retrieve TODO list information for ID " + str(employee_id))
+        print("Could not retrieve TODO list information for ID " + str(
+            employee_id))
         sys.exit(1)
     todos = response.json()
 
@@ -38,7 +40,8 @@ def main():
 
     # Display information
     print(
-        "Employee {} is done with tasks({}/{})".format(employee_name, done_tasks, total_tasks))
+        "Employee {} is done with tasks({}/{})".format(
+            employee_name, done_tasks, total_tasks))
     for todo in todos:
         if todo["completed"]:
             print("\t {}".format(todo['title']))
