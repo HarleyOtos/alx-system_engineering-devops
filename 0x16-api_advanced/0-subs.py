@@ -16,7 +16,7 @@ def number_of_subscribers(subreddit):
         The number of subscribers for the given subreddit, or 0 if the subreddit is invalid.
     """
     # Construct the API endpoint URL for the given subreddit
-    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
 
     # Set a custom User-Agent header to avoid API request errors
     headers = {
