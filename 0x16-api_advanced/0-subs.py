@@ -21,10 +21,7 @@ def number_of_subscribers(subreddit):
     url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
 
     # Set a custom User-Agent header to avoid API request errors
-    headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
-                  '(KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
-    }
+    headers = {'User-Agent': 'Mozilla/5.0'}
 
     # Make an API request to the endpoint
     response = requests.get(url, headers=headers, allow_redirects=False)
