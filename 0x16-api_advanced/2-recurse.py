@@ -5,6 +5,7 @@ the titles of all hot articles
 """
 import requests
 
+
 def recurse(subreddit, hot_list=[], after=None):
     # If hot_list is not provided, initialize it to an empty list
     if hot_list is None:
