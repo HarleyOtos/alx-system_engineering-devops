@@ -1,0 +1,19 @@
+##
+# This configuration sets up Nginx to listen on port 80
+# for both IPv4 and IPv6 connections.
+# It proxies requests to the Flask application server
+# running on port 5000 using the proxy_pass directive.
+##
+
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name _;
+
+    location /airbnb-onepage/ {
+        proxy_pass http://0.0.0.0:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
